@@ -24,8 +24,8 @@ const userSchema = new Schema(
     unique: true
   },
 
-  password: {
-    type: string,
+    password: {
+    type: String,
     required: true
   },
 
