@@ -7,3 +7,4 @@
 
 
 /* Delete Entry Route (delete) */
+module.exports = router;
