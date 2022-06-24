@@ -5,6 +5,7 @@ const User = require("../models/User.model")
 const bcryptjs = require('bcryptjs')
 const express = require("express");
 const jwt = require("jsonwebtoken");
+
 const { isAuthenticated } = require('./../middleware/jwt.middleware.js');
 const saltRounds = 10
 
@@ -17,18 +18,19 @@ router.post("/signup", (req, res) => {
     res.status(400).json({ message: "Provide email, password and name" });
     return;
 }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  if (!emailRegex.test(email)) {
-    res.status(400).json({ message: 'Provide a valid email address.' });
-    return;
-  }
+  // this does not work:
+  // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  // if (!emailRegex.test(email)) {
+  //   res.status(400).json({ message: 'Provide a valid email address.' });
+  //   return;
+  // }
   
-  const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  if (!passwordRegex.test(password)) {
-    res.status(400).json({ message: 'Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.' });
-    return;
-  }
+   // this does not work:
+  // const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  // if (!passwordRegex.test(password)) {
+  //   res.status(400).json({ message: 'Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.' });
+  //   return;
+  // }
  
   User.findOne({ email })
     .then((foundUser) => {
@@ -83,8 +85,8 @@ router.post('/login', (req, res, next) => {
           process.env.TOKEN_SECRET,
           { algorithm: 'HS256', expiresIn: "6h" }
         );
- 
         res.status(200).json({ authToken: authToken });
+        
       }
       else {
         res.status(401).json({ message: "Unable to authenticate the user" });
@@ -96,13 +98,26 @@ router.post('/login', (req, res, next) => {
       res.status(500).json({ message: err })});
 });
 
-
 // GET  /auth/verify  -  Used to verify JWT stored on the client
 
-router.get('/verify', isAuthenticated, (req, res, next) => {       
+router.get('/verify', isAuthenticated, (req, res, next) => {    
   console.log(`req.payload`, req.payload);
   res.status(200).json(req.payload);
 });
+
+
+
+
+
+
+
+// -------------------  LOGOUT ---------------------- \\
+// router.post('/logout', (req, res) => {
+//   req.session.destroy(err => {
+//     if (err) next(err);
+//     res.redirect('/');
+//   });
+// });
 
 
 

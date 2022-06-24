@@ -1,6 +1,6 @@
 // Comments Routes
 const router = require("express").Router();
-const User = require("../models/Comment.model");
+const User = require("../models/Comments.model");
 // /* Create Comment Route (post) */
 
 // router.post('/', async(req, res, next) => {
@@ -37,7 +37,7 @@ try {
 
 
 /* Update Comment Route (put) */
-router.get('/edit-comment/:id', isLoggedIn, (req, res, next) => {
+router.get('/edit-comment/:id', (req, res, next) => {
     Comment.findById(req.params.id)
     .then ((toUpdateComment) => {
     console.log(toUpdateComment)
@@ -58,7 +58,7 @@ router.get('/edit-comment/:id', isLoggedIn, (req, res, next) => {
     })
 
 /* Delete Comment Route (delete) */
-router.get('/comment-list', isLoggedIn, (req, res, next) => {
+router.get('/comment-list', (req, res, next) => {
     Comment.find()
     .then ((listComments) => {
     res.render('auth/comments-list', {listComments})

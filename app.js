@@ -28,10 +28,10 @@ app.use("/api", allRoutes);
    
 // protected routes
 // const experiencesRouter = require('./routes/experiences.routes')
-// app.use('/api/experiences', isAuthenticated, experiencesRouter)
+// app.use('/auth/experiences', isAuthenticated, experiencesRouter)
 
 // const commentsRouter = require('./routes/comments.routes')
-// app.use('/api/comments', isAuthenticated, commentsRouter)
+// app.use('/auth/comments', isAuthenticated, commentsRouter)
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
