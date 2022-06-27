@@ -67,6 +67,7 @@ router.post('/login', (req, res, next) => {
   }
  
   User.findOne({ email })
+  .populate('experiences')
     .then((foundUser) => {
     
       if (!foundUser) {

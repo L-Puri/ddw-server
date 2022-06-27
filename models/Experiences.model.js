@@ -14,6 +14,9 @@ const experiencesSchema = new Schema(
     picture: {
       type: String
     },
+    owner: {
+       type: Schema.Types.ObjectId, ref: 'User'
+    }
   },
     {
       timestamps: true,
@@ -26,3 +29,5 @@ const Experience = model("Experience", experiencesSchema);
 module.exports = Experience;
 
 
+
+ 

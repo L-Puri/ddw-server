@@ -34,6 +34,7 @@ const userSchema = new Schema(
   },
 
 experiences: [{ type: Schema.Types.ObjectId, ref: Experience }]
+
 }
 
 );

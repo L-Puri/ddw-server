@@ -22,6 +22,9 @@ app.use("/api", allRoutes);
 const commentsRouter = require('./routes/comments.routes')
 app.use('/comments', isAuthenticated, commentsRouter)
 
+const experiencesRouter = require('./routes/experiences.routes')
+app.use('/experiences', isAuthenticated, experiencesRouter)
+
 // const profileRouter = require ('./routes/profile.routes')
 // app.use('/profile', isAuthenticated, profileRouter)
 
