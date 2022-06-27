@@ -111,6 +111,11 @@ router.get('/verify', isAuthenticated, (req, res, next) => {
 
 
 
+
+
+
+
+
 // -------------------  LOGOUT ---------------------- \\
 // router.post('/logout', (req, res) => {
 //   req.session.destroy(err => {
