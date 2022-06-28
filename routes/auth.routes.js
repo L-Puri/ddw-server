@@ -106,33 +106,18 @@ router.get('/verify', isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
 });
 
-
-
-
-
-
-
-
-
-
-
-
-// -------------------  LOGOUT ---------------------- \\
-// router.post('/logout', (req, res) => {
-//   req.session.destroy(err => {
-//     if (err) next(err);
-//     res.redirect('/');
-//   });
-// });
-
-
-
 /* Delete User Route (delete) */
+
+// router.delete('/:Id', async (req, res, next) => {
+//   const { userId } = req.params
+//   console.log("CHECK HERE PARAMS ----->", req.params)
+//   await User.findByIdAndDelete(userId)
+//   res.status(200).json({ message: 'User deleted' })
+// })
 
 // router.post('/auth/:id', (req, res) => {
 //     console.log("CHECK HERE PARAMS ----->", req.params)
 //     User.findByIdAndDelete(req.params.id)
-//     // no redirect due to using React
 //   });
 
   module.exports = router;
