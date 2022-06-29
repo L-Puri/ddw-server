@@ -1,5 +1,4 @@
 // User Routes
-
 const router = require("express").Router();
 const User = require("../models/User.model")
 const bcryptjs = require('bcryptjs')
@@ -47,7 +46,7 @@ router.post("/signup", (req, res) => {
     .then((createdUser) => {
         const { email, username, _id } = createdUser;
         const user = { email, username, _id };
-        res.status(201).json({ user: user });
+        res.status(201).json({ user });
     })
     .catch(err => {
       console.log(err);
@@ -55,7 +54,6 @@ router.post("/signup", (req, res) => {
     });
 });
  
-
 // -------------------  LOGIN ---------------------- \\
 // POST  /auth/login - Verifies email and password and returns a JWT
 router.post('/login', (req, res, next) => {
@@ -65,9 +63,8 @@ router.post('/login', (req, res, next) => {
     res.status(400).json({ message: "Provide email and password." });
     return;
   }
- 
   User.findOne({ email })
-  .populate('experiences')
+  //.populate('experiences')
     .then((foundUser) => {
     
       if (!foundUser) {
@@ -79,7 +76,6 @@ router.post('/login', (req, res, next) => {
  
       if (passwordCorrect) {
         const { _id, email, username } = foundUser;
-        
         const payload = { _id, email, username };
         const authToken = jwt.sign( 
           payload,
@@ -99,12 +95,39 @@ router.post('/login', (req, res, next) => {
       res.status(500).json({ message: err })});
 });
 
-// GET  /auth/verify  -  Used to verify JWT stored on the client
-
-router.get('/verify', isAuthenticated, (req, res, next) => {    
+router.get('/verify', isAuthenticated, (req, res, next) => {  
   console.log(`req.payload`, req.payload);
   res.status(200).json(req.payload);
 });
+
+// GET  /auth/confirm-experiences 
+router.get('/confirm-experiences', isAuthenticated, async (req, res, next) => {  
+  const userId = req.payload._id
+  const foundUser = await User.findById(userId).populate("experiences")
+  if (foundUser !== null) {
+    res.status(200).json(foundUser.experiences);
+  } else {
+    res.status(400).json("No experiences, check your back")
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Delete User Route (delete) */
 
