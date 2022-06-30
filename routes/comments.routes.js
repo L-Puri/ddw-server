@@ -7,9 +7,10 @@ const { isAuthenticated } = require('./../middleware/jwt.middleware.js');
 
 router.post('/details/:Id/comment', isAuthenticated, async (req, res, next) => {
 try {
-    const { author, content } = req.body;
+    const { comment } = req.body;
     console.log("this is the new comment: ", req.body, req.payload)
-    const newComment = await Comment.create({ author, content, author: req.payload._id });
+    const newComment = await Comment.create({ author: req.payload._id, content });
+    console.log ("newComment: ", newComment)
     const updatedExperience = await Experience.findByIdAndUpdate({_id: req.payload._id}, {$push: {comments: [newComment._id]}}, {new: true})
     res
     .status(201)

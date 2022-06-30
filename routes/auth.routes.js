@@ -111,24 +111,6 @@ router.get('/confirm-experiences', isAuthenticated, async (req, res, next) => {
   }
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Delete User Route (delete) */
 
 // router.delete('/:Id', async (req, res, next) => {

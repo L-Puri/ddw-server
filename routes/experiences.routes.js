@@ -26,36 +26,6 @@ router.post("/create-entry", isAuthenticated, async (req, res, next) => {
 });
 
 
-// router.post("/create-entry", (req, res) => {
-//     console.log ("serverside-recieving (experience-creation): ", req.body) 
-//   const { title, description, picture } = req.body;
-//   if (title === '' || description === '' || picture === '') {
-//     res.status(400).json({ message: "Provide title, description and picture!" });
-//     return;
-// }
-
-// Experience.findOne({ title })
-//     .then((foundTitle) => {
-//       console.log('Were inside!')
-//       if (foundTitle) {
-//         res.status(400).json({ message: "Title already exists. Find a cooler dream" });
-//         return;
-//       }
- 
-     
-//     })
-//     .then((createdExperience) => {
-//         const { title, description, _id } = createdExperience;
-//         const experience = { title, description, _id };
-//         res.status(201).json({ experience: experience });
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({ message: "Internal Server Error" })
-//     });
-// });
-
-
 /* Update Entry Route (put) */
 router.put("/update-entry/:experienceId", async (req, res, next) => {
   const { experienceId } = req.params;
@@ -100,10 +70,13 @@ router.put("/update-entry/:experienceId", async (req, res, next) => {
 //   res.json(experiences);
 // });
 
+
+
+
 /* Delete Entry Route (delete) */
 router.delete("/delete-entry/:experienceId", async (req, res, next) => {
   const { experienceId } = req.params;
-
+  console.log(experienceId)
   await Experience.findByIdAndDelete(experienceId);
   res.status(200).json({ message: "Experience deleted" });
 });
