@@ -56,14 +56,6 @@ router.post("/create-entry", isAuthenticated, async (req, res, next) => {
 // });
 
 
-
-
-
-
-
-
-
-
 /* Update Entry Route (put) */
 router.put("/update-entry/:experienceId", async (req, res, next) => {
   const { experienceId } = req.params;

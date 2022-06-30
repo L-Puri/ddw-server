@@ -1,6 +1,45 @@
-// Comments Routes
 const router = require("express").Router();
 const User = require("../models/Comments.model");
+const Comment = require("../models/Comments.model")
+const { isAuthenticated } = require('./../middleware/jwt.middleware.js');
+
+/* Create comment */
+
+router.post('/details/:Id/comment', isAuthenticated, async (req, res, next) => {
+try {
+    const { author, content } = req.body;
+    console.log("this is the new comment: ", req.body, req.payload)
+    const newComment = await Comment.create({ author, content, author: req.payload._id });
+    const updatedExperience = await Experience.findByIdAndUpdate({_id: req.payload._id}, {$push: {comments: [newComment._id]}}, {new: true})
+    res
+    .status(201)
+    .json({ message: "New comment created"}); 
+    console.log("updated Comment:", updatedExperience);
+} catch (error){
+    console.log(error)
+    res.status(500).json(error);
+    }
+}) 
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // /* Create Comment Route (post) */
 
 // router.post('/', async(req, res, next) => {
@@ -20,50 +59,33 @@ const User = require("../models/Comments.model");
     
 // })
 
+// /* Update Comment Route (put) */
+// router.get('/edit-comment/:id', (req, res, next) => {
+//     Comment.findById(req.params.id)
+//     .then ((toUpdateComment) => {
+//     console.log(toUpdateComment)
+//     res.render('auth/edit-comment', {toUpdateComment})
+//     })
+//     });
 
-/* Create comment */
+//     router.post('/edit-comment/:commentId', async (req, res) => { 
+//     try {
+//     console.log("editing function opens!!!")
+//         const {author, content, timestamps} = req.body;
+//         const {commentId} = req.params
+//         const updatedComment = await Comment.findByIdAndUpdate(commentId, {author, content, timestamps}, {new: true})
+//         res.redirect(`/comment-details/${updatedComment._id}`);
+//     } catch (error){
+//         console.log ("Updating a book in the database failed", (error))
+//     }
+//     })
 
-router.post('/', async (req, res) => {
-try {
-    console.log(req.body)
-    const { author, content, timestamps } = req.body;
-    const newComment = await Comment.create({ author, content, timestamps });
-    const updatedComment = await Comment.updateOne({_id:comment}, {$push: {comments: [newComment]}})
-    console.log("updated Comment:", updatedUser);
-    res.redirect(`/..../${newComment._id}`);
-} catch (error){
-    console.log ("Creating new comment in the database failed", (error))}
-}) 
-
-
-/* Update Comment Route (put) */
-router.get('/edit-comment/:id', (req, res, next) => {
-    Comment.findById(req.params.id)
-    .then ((toUpdateComment) => {
-    console.log(toUpdateComment)
-    res.render('auth/edit-comment', {toUpdateComment})
-    })
-    });
-
-    router.post('/edit-comment/:commentId', async (req, res) => { 
-    try {
-    console.log("editing function opens!!!")
-        const {author, content, timestamps} = req.body;
-        const {commentId} = req.params
-        const updatedComment = await Comment.findByIdAndUpdate(commentId, {author, content, timestamps}, {new: true})
-        res.redirect(`/comment-details/${updatedComment._id}`);
-    } catch (error){
-        console.log ("Updating a book in the database failed", (error))
-    }
-    })
-
-/* Delete Comment Route (delete) */
-router.get('/comment-list', (req, res, next) => {
-    Comment.find()
-    .then ((listComments) => {
-    res.render('auth/comments-list', {listComments})
-    })
-});
+// /* Delete Comment Route (delete) */
+// router.get('/comment-list', (req, res, next) => {
+//     Comment.find()
+//     .then ((listComments) => {
+//     res.render('auth/comments-list', {listComments})
+//     })
+// });
 
 
-module.exports = router;

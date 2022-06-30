@@ -4,7 +4,7 @@ const User = require('./User.model')
 
 const commentSchema = new Schema(
   {
-    author: [{ type: Schema.Types.ObjectId, ref: User }],
+    author: {type: Schema.Types.ObjectId, ref: 'User'},
     content: {
         type: String,
         required: true
@@ -12,7 +12,7 @@ const commentSchema = new Schema(
       },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Comment = model("comment", commentSchema);
