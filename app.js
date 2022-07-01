@@ -25,16 +25,6 @@ app.use('/comments', isAuthenticated, commentsRouter)
 const experiencesRouter = require('./routes/experiences.routes')
 app.use('/experiences', isAuthenticated, experiencesRouter)
 
-// const profileRouter = require ('./routes/profile.routes')
-// app.use('/profile', isAuthenticated, profileRouter)
-
-
-
 require("./error-handling")(app);
 
 module.exports = app;
-
-
-// protected routes
-// const experiencesRouter = require('./routes/experiences.routes')
-// app.use('/auth/experiences', isAuthenticated, experiencesRouter)

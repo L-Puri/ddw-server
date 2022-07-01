@@ -56,20 +56,6 @@ router.put("/update-entry/:experienceId", async (req, res, next) => {
   }
 });
 
-// /* Get All Entries Route */
-// router.get("/", async (req, res, next) => {
-//   const experiences = await Experience.find();
-//   res.json(experiences);
-// });
-
-// /* Get One Specific Entriy Route */
-// router.get("/:experienceId", async (req, res, next) => {
-//   const { experienceId } = req.params;
-
-//   const experiences = await Experience.findById(experienceId);
-//   res.json(experiences);
-// });
-
 /* Delete Entry Route (delete) */
 router.delete("/delete-entry/:experienceId", async (req, res, next) => {
   const { experienceId } = req.params;

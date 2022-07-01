@@ -3,8 +3,6 @@ const User = require("../models/Comments.model");
 const Comment = require("../models/Comments.model")
 const { isAuthenticated } = require('./../middleware/jwt.middleware.js');
 
-/* Create comment */
-
 router.post('/details/:Id/comment', isAuthenticated, async (req, res, next) => {
 try {
     const { comment } = req.body;

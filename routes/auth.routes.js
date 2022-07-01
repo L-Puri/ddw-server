@@ -17,19 +17,6 @@ router.post("/signup", (req, res) => {
     res.status(400).json({ message: "Provide email, password and name" });
     return;
 }
-  // this does not work:
-  // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  // if (!emailRegex.test(email)) {
-  //   res.status(400).json({ message: 'Provide a valid email address.' });
-  //   return;
-  // }
-  
-   // this does not work:
-  // const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  // if (!passwordRegex.test(password)) {
-  //   res.status(400).json({ message: 'Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.' });
-  //   return;
-  // }
  
   User.findOne({ email })
     .then((foundUser) => {
@@ -110,19 +97,5 @@ router.get('/confirm-experiences', isAuthenticated, async (req, res, next) => {
     res.status(400).json("No experiences, check your back")
   }
 })
-
-/* Delete User Route (delete) */
-
-// router.delete('/:Id', async (req, res, next) => {
-//   const { userId } = req.params
-//   console.log("CHECK HERE PARAMS ----->", req.params)
-//   await User.findByIdAndDelete(userId)
-//   res.status(200).json({ message: 'User deleted' })
-// })
-
-// router.post('/auth/:id', (req, res) => {
-//     console.log("CHECK HERE PARAMS ----->", req.params)
-//     User.findByIdAndDelete(req.params.id)
-//   });
 
   module.exports = router;
