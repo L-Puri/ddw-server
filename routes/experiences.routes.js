@@ -56,6 +56,8 @@ router.put("/update-entry/:experienceId", async (req, res, next) => {
   }
 });
 
+
+
 /* Delete Entry Route (delete) */
 router.delete("/delete-entry/:experienceId", async (req, res, next) => {
   const { experienceId } = req.params;
